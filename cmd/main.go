@@ -10,6 +10,13 @@ func main() {
 	app := &cli.App{
 		Name:  "starter",
 		Usage: "create puppet for the project",
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:  "include-dirs",
+				Value: "",
+				Usage: "including directories to the project",
+			},
+		},
 		Commands: []*cli.Command{
 			{
 				Name:  "build",
