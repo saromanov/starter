@@ -40,15 +40,37 @@ func makeDirs(p *models.Project) error {
 	return nil
 }
 
+// createDockerfile provides creating of teh docker file
+// if this is defined at the config
 func createDockerfile(p *models.Project) error {
-	if !p.Dockerfile {
-		return nil
+	if p.Dockerfile == "default" {
+		return createDefaultDockerfile(p)
 	}
 
+	return moveDockerfile(p)
+}
+
+// creating of default dockerfile
+func createDefaultDockerfile(p *models.Project) error {
 	d1 := []byte("FROM golang:1.13")
 	err := ioutil.WriteFile("Dockerfile", d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to create dockerfile: %v", err)
+	}
+	return nil
+}
+
+// moveDockerfile provides copy of the target Dockerfile
+// to the project
+func moveDockerfile(p *models.Project) error {
+	input, err := ioutil.ReadFile(p.Dockerfile)
+	if err != nil {
+		return fmt.Errorf("unable to open Dockerfile: %s %v", p.Dockerfile, err)
+	}
+
+	err = ioutil.WriteFile(p.Name, input, 0644)
+	if err != nil {
+		return fmt.Errorf("unable to create Dockerfile at: %s %v", p.Name, err)
 	}
 
 	return nil

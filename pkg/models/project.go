@@ -5,7 +5,7 @@ type Project struct {
 	Name       string
 	Author     string
 	GitPath    string
-	Dockerfile bool
+	Dockerfile string
 	Makefile   bool
 	SubDirs    []string
 }
