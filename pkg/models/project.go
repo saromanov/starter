@@ -7,4 +7,5 @@ type Project struct {
 	GitPath    string
 	Dockerfile bool
 	Makefile   bool
+	SubDirs    []string
 }

@@ -19,6 +19,8 @@ func Build() error {
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
 	}
+
+	return nil
 }
 
 func consoleRead() (*models.Project, error) {
