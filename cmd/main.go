@@ -3,8 +3,17 @@ package main
 import (
 	"os"
 
+	"github.com/saromanov/starter/pkg/cmd"
 	"github.com/urfave/cli/v2"
 )
+
+func build(c *cli.Context) error {
+	if err := cmd.Build(); err != nil {
+		panic(err)
+	}
+
+	return nil
+}
 
 func main() {
 	app := &cli.App{
@@ -19,11 +28,9 @@ func main() {
 		},
 		Commands: []*cli.Command{
 			{
-				Name:  "build",
-				Usage: "building of the new project",
-				Action: func(c *cli.Context) error {
-					return nil
-				},
+				Name:   "build",
+				Usage:  "building of the new project",
+				Action: build,
 			},
 		},
 	}
