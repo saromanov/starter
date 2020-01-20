@@ -6,11 +6,19 @@ import (
 	"os"
 
 	"github.com/saromanov/starter/pkg/models"
+	"github.com/saromanov/starter/pkg/project"
 )
 
 // Build provides building of the tree structure for project
 func Build() error {
+	pr, err := consoleRead()
+	if err != nil {
+		return err
+	}
 
+	if err := project.Build(pr); err != nil {
+		return fmt.Errorf("unable to build project: %v", err)
+	}
 }
 
 func consoleRead() (*models.Project, error) {
