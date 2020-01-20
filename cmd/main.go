@@ -13,7 +13,7 @@ func main() {
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  "include-dirs",
-				Value: "",
+				Value: "cmd,pkg",
 				Usage: "including directories to the project",
 			},
 		},
