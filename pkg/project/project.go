@@ -44,6 +44,7 @@ func makeDirs(p *models.Project) error {
 	return nil
 }
 
+// createMakefile provides creating of Makefile
 func createMakefile(p *models.Project) error {
 	if p.Makefile == "" {
 		return nil
@@ -82,6 +83,7 @@ func moveDockerfile(p *models.Project) error {
 	return moveFile(p.Dockerfile, p.Name)
 }
 
+// moveMakefile provides moving of Makefile
 func moveMakefile(inPath, outPath string) error {
 	return moveFile(inPath, outPath)
 }
