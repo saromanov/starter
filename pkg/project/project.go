@@ -48,6 +48,12 @@ func createMakefile(p *models.Project) error {
 	if p.Makefile == "" {
 		return nil
 	}
+
+	if p.Makefile == "default" {
+		return moveMakefile("./assets/makefile-default", "Makefile")
+	}
+
+	return moveMakefile(p.Makefile, "Makefile")
 }
 
 // createDockerfile provides creating of teh docker file
@@ -74,4 +80,8 @@ func createDefaultDockerfile(p *models.Project) error {
 // to the project
 func moveDockerfile(p *models.Project) error {
 	return moveFile(p.Dockerfile, p.Name)
+}
+
+func moveMakefile(inPath, outPath string) error {
+	return moveFile(inPath, outPath)
 }
