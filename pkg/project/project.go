@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/saromanov/starter/pkg/exec"
 	"github.com/saromanov/starter/pkg/models"
 )
 
@@ -19,7 +20,18 @@ func Build(p *models.Project) error {
 	if err := createDockerfile(p); err != nil {
 		return err
 	}
+	if err := initGoMod(); err != nil {
+		return err
+	}
 	return nil
+}
+
+// initGoMod provides initialization of go modules
+func initGoMod() error {
+	if err := exec.Run("go", "mod", "init"); err != nil {
+		return err
+	}
+	return exec.Run("go", "mod", "tidy")
 }
 
 // makeDirs provides creating of dir structure of the project
