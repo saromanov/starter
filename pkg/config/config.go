@@ -24,7 +24,19 @@ func Load(path string) (*Config, error) {
 	if err := cowrow.LoadByPath(path, &c); err != nil {
 		return nil, fmt.Errorf("unable to load config: %v", err)
 	}
-	
+
+	if c.Name == "" {
+		return nil, fmt.Errorf("name is not defined")
+	}
+
+	c.makeDefaults()
 	return c, nil
+}
+
+// makeDefaults provides filling of default config
+func (c *Config) makeDefaults() {
+	if len(c.Subdirs) == 0 {
+		c.Subdirs = []string{"cmd", "pkg"}
+	}
 }
 
