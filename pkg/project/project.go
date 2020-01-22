@@ -37,7 +37,17 @@ func makeDirs(p *models.Project) error {
 		}
 	}
 
+	if err := createDockerfile(p); err != nil {
+		return fmt.Errorf("unable to create dockerfile: %v", err)
+	}
+
 	return nil
+}
+
+func createMakefile(p *models.Project) error {
+	if p.Makefile == "" {
+		return nil
+	}
 }
 
 // createDockerfile provides creating of teh docker file
