@@ -40,8 +40,14 @@ func consoleRead() (*models.Project, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
 	}
-	p.Name = author
 	p.Author = author
+
+	fmt.Println("Git path")
+	gitPath, err := reader.ReadString('\n')
+	if err != nil {
+		return nil, fmt.Errorf("unable to read git path: %v", err)
+	}
+	p.GitPath = gitPath
 
 	return p, nil
 }
