@@ -63,15 +63,5 @@ func createDefaultDockerfile(p *models.Project) error {
 // moveDockerfile provides copy of the target Dockerfile
 // to the project
 func moveDockerfile(p *models.Project) error {
-	input, err := ioutil.ReadFile(p.Dockerfile)
-	if err != nil {
-		return fmt.Errorf("unable to open Dockerfile: %s %v", p.Dockerfile, err)
-	}
-
-	err = ioutil.WriteFile(p.Name, input, 0644)
-	if err != nil {
-		return fmt.Errorf("unable to create Dockerfile at: %s %v", p.Name, err)
-	}
-
-	return nil
+	return moveFile(p.Dockerfile, p.Name)
 }
