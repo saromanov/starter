@@ -25,6 +25,10 @@ func main() {
 				Value: "cmd,pkg",
 				Usage: "including directories to the project",
 			},
+			&cli.StringFlag{
+				Name:  "config",
+				Usage: "path to the config",
+			},
 		},
 		Commands: []*cli.Command{
 			{
