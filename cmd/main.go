@@ -8,7 +8,8 @@ import (
 )
 
 func build(c *cli.Context) error {
-	if err := cmd.Build(); err != nil {
+	projectFlag := c.String("project")
+	if err := cmd.Build(projectFlag); err != nil {
 		panic(err)
 	}
 
@@ -28,6 +29,11 @@ func main() {
 			&cli.StringFlag{
 				Name:  "config",
 				Usage: "path to the config",
+			},
+			&cli.StringFlag{
+				Name:  "project",
+				Value: "bin",
+				Usage: "type of the project. It might be bin or lib",
 			},
 		},
 		Commands: []*cli.Command{

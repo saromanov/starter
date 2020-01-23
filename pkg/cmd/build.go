@@ -10,12 +10,12 @@ import (
 )
 
 // Build provides building of the tree structure for project
-func Build() error {
+func Build(projectFlag string) error {
 	pr, err := consoleRead()
 	if err != nil {
 		return err
 	}
-
+	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
 	}
