@@ -1,7 +1,9 @@
 package dockerfile
 
 import (
+	"fmt"
 	"io/ioutil"
+
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 )
@@ -24,11 +26,11 @@ func (d *Dockerfile) String() string {
 
 // Do defines action of the task
 func (d *Dockerfile) Do() error {
-	if d.Dockerfile == "default" {
-		return createDefaultDockerfile(p)
+	if d.p.Dockerfile == "default" {
+		return createDefaultDockerfile(d.p)
 	}
 
-	return moveDockerfile(p)
+	return moveDockerfile(d.p)
 }
 
 // creating of default dockerfile
@@ -44,5 +46,5 @@ func createDefaultDockerfile(p *models.Project) error {
 // moveDockerfile provides copy of the target Dockerfile
 // to the project
 func moveDockerfile(p *models.Project) error {
-	return moveFile(p.Dockerfile, p.Name)
+	return task.MoveFile(p.Dockerfile, p.Name)
 }

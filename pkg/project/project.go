@@ -3,17 +3,22 @@ package project
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/saromanov/starter/pkg/exec"
 	"github.com/saromanov/starter/pkg/models"
+	"github.com/saromanov/starter/pkg/task"
+	"github.com/saromanov/starter/pkg/task/dockerfile"
 )
 
 var errNoName = errors.New("name of the project is not defined")
 
 // Build provides building of the project
 func Build(p *models.Project) error {
+	tasks := []task.Task{}
+	if p.Dockerfile != "" {
+		tasks = append(tasks, dockerfile.New(p))
+	}
 	if err := makeDirs(p); err != nil {
 		return err
 	}
@@ -67,35 +72,4 @@ func createMakefile(p *models.Project) error {
 	}
 
 	return moveMakefile(p.Makefile, "Makefile")
-}
-
-// createDockerfile provides creating of teh docker file
-// if this is defined at the config
-func createDockerfile(p *models.Project) error {
-	if p.Dockerfile == "default" {
-		return createDefaultDockerfile(p)
-	}
-
-	return moveDockerfile(p)
-}
-
-// creating of default dockerfile
-func createDefaultDockerfile(p *models.Project) error {
-	d1 := []byte("FROM golang:1.13")
-	err := ioutil.WriteFile("Dockerfile", d1, 0644)
-	if err != nil {
-		return fmt.Errorf("unable to create dockerfile: %v", err)
-	}
-	return nil
-}
-
-// moveDockerfile provides copy of the target Dockerfile
-// to the project
-func moveDockerfile(p *models.Project) error {
-	return moveFile(p.Dockerfile, p.Name)
-}
-
-// moveMakefile provides moving of Makefile
-func moveMakefile(inPath, outPath string) error {
-	return moveFile(inPath, outPath)
 }
