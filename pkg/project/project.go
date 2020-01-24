@@ -9,6 +9,7 @@ import (
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
+	"github.com/saromanov/starter/pkg/task/makefile"
 )
 
 var errNoName = errors.New("name of the project is not defined")
@@ -19,10 +20,10 @@ func Build(p *models.Project) error {
 	if p.Dockerfile != "" {
 		tasks = append(tasks, dockerfile.New(p))
 	}
-	if err := makeDirs(p); err != nil {
-		return err
+	if p.Makefile != "" {
+		tasks = append(tasks, makefile.New(p))
 	}
-	if err := createDockerfile(p); err != nil {
+	if err := makeDirs(p); err != nil {
 		return err
 	}
 	if err := initGoMod(); err != nil {
@@ -54,22 +55,5 @@ func makeDirs(p *models.Project) error {
 		}
 	}
 
-	if err := createDockerfile(p); err != nil {
-		return fmt.Errorf("unable to create dockerfile: %v", err)
-	}
-
 	return nil
-}
-
-// createMakefile provides creating of Makefile
-func createMakefile(p *models.Project) error {
-	if p.Makefile == "" {
-		return nil
-	}
-
-	if p.Makefile == "default" {
-		return moveMakefile("./assets/makefile-default", "Makefile")
-	}
-
-	return moveMakefile(p.Makefile, "Makefile")
 }
