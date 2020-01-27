@@ -5,12 +5,13 @@ import (
 
 	"github.com/saromanov/starter/pkg/cmd"
 	"github.com/urfave/cli/v2"
+	"github.com/sirupsen/logrus"
 )
 
 func build(c *cli.Context) error {
 	projectFlag := c.String("project")
 	if err := cmd.Build(projectFlag); err != nil {
-		panic(err)
+		logrus.Fatalf("unable to run project project: %v", err)
 	}
 
 	return nil

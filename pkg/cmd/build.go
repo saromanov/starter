@@ -33,12 +33,18 @@ func consoleRead() (*models.Project, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
 	}
+	if name == "" {
+		return nil, errNoName
+	}
 	p.Name = name
 
 	fmt.Println("Author of the project")
 	author, err := reader.ReadString('\n')
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
+	}
+	if author == "" {
+		return nil, errNoAuthor
 	}
 	p.Author = author
 
