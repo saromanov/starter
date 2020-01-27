@@ -1,6 +1,8 @@
 package project
 
 import (
+	"fmt"
+
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 	"github.com/saromanov/starter/pkg/task/dirs"
@@ -18,5 +20,16 @@ func Build(p *models.Project) error {
 	if p.Makefile != "" {
 		tasks = append(tasks, makefile.New(p))
 	}
+	return runTasks(tasks)
+}
+
+// runTasks provides execution of tasks
+func runTasks(tasks []task.Task) error {
+	for _, t := range tasks {
+		if err := t.Do(); err != nil {
+			return fmt.Errorf("unable to execute task: %s %v", t.String(), err)
+		}
+	}
+
 	return nil
 }
