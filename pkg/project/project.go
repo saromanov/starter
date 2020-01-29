@@ -9,11 +9,12 @@ import (
 	"github.com/saromanov/starter/pkg/task/dockerfile"
 	"github.com/saromanov/starter/pkg/task/gomod"
 	"github.com/saromanov/starter/pkg/task/makefile"
+	"github.com/saromanov/starter/pkg/task/readme"
 )
 
 // Build provides building of the project
 func Build(p *models.Project) error {
-	tasks := []task.Task{dirs.New(p), gomod.New(p)}
+	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p)}
 	if p.Dockerfile != "" {
 		tasks = append(tasks, dockerfile.New(p))
 	}

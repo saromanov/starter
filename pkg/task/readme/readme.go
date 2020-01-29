@@ -31,8 +31,8 @@ func (d *Readme) String() string {
 
 // Do defines action of the task
 func (d *Readme) Do() error {
-	d1 := []byte(generate(d.p.Name, d.p.Description))
-	err := ioutil.WriteFile(fmt.Sprintf("%d/README.md", d.p.Name), d1, 0644)
+	d1 := []byte(generate(d.p.Name, d.p.Description, d.p.Author))
+	err := ioutil.WriteFile(fmt.Sprintf("%s/README.md", d.p.Name), d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to write readme: %v", err)
 	}
