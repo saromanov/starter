@@ -33,10 +33,13 @@ func consoleRead() (*models.Project, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
 	}
+	if len(name) < 3 || len(name) > 30 {
+		return nil, fmt.Errorf("unable to validate name of the project length")
+	}
 	if name == "" {
 		return nil, errNoName
 	}
-	p.Name = name
+	p.Name = name[:len(name)-1]
 
 	fmt.Println("Author of the project")
 	author, err := reader.ReadString('\n')

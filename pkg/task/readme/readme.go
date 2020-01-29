@@ -41,11 +41,13 @@ func (d *Readme) Do() error {
 
 func generate(name, description, author string) string {
 	var builder strings.Builder
-	builder.WriteString(fmt.Sprintf("# %s", name))
+	builder.WriteString(fmt.Sprintf("# %s\n", name))
 	if description != "" {
-		builder.WriteString(description)
+		builder.WriteString(fmt.Sprintf("%s\n", description))
+	} else {
+		builder.WriteString("\n")
 	}
-	builder.WriteString(fmt.Sprintf("### Author"))
-	builder.WriteString(author)
+	builder.WriteString(fmt.Sprintf("### Author\n"))
+	builder.WriteString(fmt.Sprintf("%s\n", author))
 	return builder.String()
 }
