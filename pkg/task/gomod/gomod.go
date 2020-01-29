@@ -2,6 +2,7 @@ package gomod
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/saromanov/starter/pkg/exec"
 	"github.com/saromanov/starter/pkg/models"
@@ -24,13 +25,16 @@ func New(p *models.Project) task.Task {
 
 // String returns representation of the task
 func (d *Dirs) String() string {
-	return "dirs"
+	return "gomod"
 }
 
 // Do defines action of the task
 func (d *Dirs) Do() error {
-	if err := exec.Run("go", "mod", "init"); err != nil {
-		return err
+	if err := exec.Run(d.p.Name, "go", "mod", "init"); err != nil {
+		return fmt.Errorf("unable to run 'go mod init' command: %v", err)
 	}
-	return exec.Run("go", "mod", "tidy")
+	if err := exec.Run(d.p.Name, "go", "mod", "tidy"); err != nil {
+		return fmt.Errorf("unable to run 'go mod tidy' command: %v", err)
+	}
+	return nil
 }
