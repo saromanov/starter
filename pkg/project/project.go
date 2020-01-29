@@ -27,7 +27,7 @@ func Build(p *models.Project) error {
 func runTasks(tasks []task.Task) error {
 	for _, t := range tasks {
 		if err := t.Do(); err != nil {
-			return fmt.Errorf("unable to execute task: %s %v", t.String(), err)
+			return fmt.Errorf("unable to execute task: '%s' %v", t.String(), err)
 		}
 	}
 

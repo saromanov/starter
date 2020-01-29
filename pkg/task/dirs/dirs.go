@@ -33,13 +33,15 @@ func (d *Dirs) Do() error {
 	if d.p.Name == "" {
 		return errNoName
 	}
-	if err := os.Mkdir(d.p.Name, os.ModeDir); err != nil {
+	rootDir := d.p.Name
+	if err := os.Mkdir(rootDir, os.ModePerm); err != nil {
 		return fmt.Errorf("unable to create root dir: %v", err)
 	}
 
 	for _, dir := range d.p.SubDirs {
-		if err := os.Mkdir(dir, os.ModeDir); err != nil {
-			return fmt.Errorf("unable to create dir %s dir: %v", dir, err)
+		name := fmt.Sprintf("%s/%s", rootDir, dir)
+		if err := os.Mkdir(name, os.ModePerm); err != nil {
+			return fmt.Errorf("unable to create dir %s: %v", name, err)
 		}
 	}
 	return nil
