@@ -11,13 +11,14 @@ const (
 
 // Project provides definition of the project
 type Project struct {
-	Name       string
-	Author     string
-	GitPath    string
-	Dockerfile string
-	Makefile   string
-	Type       ProjectType
-	SubDirs    []string
+	Name        string
+	Author      string
+	GitPath     string
+	Description string
+	Dockerfile  string
+	Makefile    string
+	Type        ProjectType
+	SubDirs     []string
 }
 
 // StrToProjectType provides converting of
