@@ -8,6 +8,7 @@ import (
 	"github.com/saromanov/starter/pkg/task/dirs"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
 	"github.com/saromanov/starter/pkg/task/entryfile"
+	"github.com/saromanov/starter/pkg/task/gitremote"
 	"github.com/saromanov/starter/pkg/task/gomod"
 	"github.com/saromanov/starter/pkg/task/makefile"
 	"github.com/saromanov/starter/pkg/task/readme"
@@ -15,7 +16,7 @@ import (
 
 // Build provides building of the project
 func Build(p *models.Project) error {
-	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p)}
+	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p), gitremote.New(p)}
 	if p.Dockerfile != "" {
 		tasks = append(tasks, dockerfile.New(p))
 	}
