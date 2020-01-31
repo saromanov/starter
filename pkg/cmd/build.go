@@ -27,8 +27,8 @@ func consoleRead() (*models.Project, error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Println("Add definition of the project")
 	fmt.Println("---------------------")
-	fmt.Println("Name of the project")
 	p := &models.Project{}
+	fmt.Println("Name of the project")
 	name, err := reader.ReadString('\n')
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
@@ -59,6 +59,15 @@ func consoleRead() (*models.Project, error) {
 	p.GitPath = gitPath
 
 	return p, nil
+}
+
+func readLine(reader *bufio.Reader, name string) (string, error) {
+	fmt.Println(name)
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		return "", fmt.Errorf("unable to read line: %v", err)
+	}
+	return line, nil
 }
 
 // validateDirectories provides validation of the dirs
