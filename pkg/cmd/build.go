@@ -28,8 +28,7 @@ func consoleRead() (*models.Project, error) {
 	fmt.Println("Add definition of the project")
 	fmt.Println("---------------------")
 	p := &models.Project{}
-	fmt.Println("Name of the project")
-	name, err := reader.ReadString('\n')
+	name, err := readLine(reader, "Name of the project")
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
 	}
@@ -41,8 +40,7 @@ func consoleRead() (*models.Project, error) {
 	}
 	p.Name = name[:len(name)-1]
 
-	fmt.Println("Author of the project")
-	author, err := reader.ReadString('\n')
+	author, err := readLine(reader, "Author of the project")
 	if err != nil {
 		return nil, fmt.Errorf("unable to read user input: %v", err)
 	}
@@ -51,8 +49,7 @@ func consoleRead() (*models.Project, error) {
 	}
 	p.Author = author
 
-	fmt.Println("Git path")
-	gitPath, err := reader.ReadString('\n')
+	gitPath, err := readLine(reader, "Git path(optional)")
 	if err != nil {
 		return nil, fmt.Errorf("unable to read git path: %v", err)
 	}
