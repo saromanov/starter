@@ -1,6 +1,9 @@
 package entryfile
 
 import (
+	"fmt"
+	"io/ioutil"
+
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 )
@@ -24,5 +27,11 @@ func (d *Entryfile) String() string {
 
 // Do defines action of the task
 func (d *Entryfile) Do() error {
+	d1 := []byte(fmt.Sprintf("package %s", d.p.Name))
+	fileName := fmt.Sprintf("%s/%s.go", d.p.Name, d.p.Name)
+	err := ioutil.WriteFile(fileName, d1, 0644)
+	if err != nil {
+		return fmt.Errorf("unable to write file %s: %v", fileName, err)
+	}
 	return nil
 }
