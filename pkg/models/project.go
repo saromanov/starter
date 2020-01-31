@@ -19,6 +19,7 @@ type Project struct {
 	Makefile    string
 	Type        ProjectType
 	SubDirs     []string
+	EntryFile   string
 }
 
 // StrToProjectType provides converting of

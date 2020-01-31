@@ -55,6 +55,12 @@ func consoleRead() (*models.Project, error) {
 	}
 	p.GitPath = gitPath
 
+	entryFile, err := readLine(reader, "Entry file(optional)")
+	if err != nil {
+		return nil, fmt.Errorf("unable to read git path: %v", err)
+	}
+	p.EntryFile = entryFile
+
 	return p, nil
 }
 
