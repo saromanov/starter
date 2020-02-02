@@ -1,8 +1,7 @@
 package gomod
 
 import (
-	"errors"
-	"fmt"
+	"github.com/pkg/errors"
 
 	"github.com/saromanov/starter/pkg/exec"
 	"github.com/saromanov/starter/pkg/models"
@@ -31,10 +30,10 @@ func (d *Dirs) String() string {
 // Do defines action of the task
 func (d *Dirs) Do() error {
 	if err := exec.Run(d.p.Name, "go", "mod", "init"); err != nil {
-		return fmt.Errorf("unable to run 'go mod init' command: %v", err)
+		return errors.Wrap(err, "unable to run 'go mod init' command")
 	}
 	if err := exec.Run(d.p.Name, "go", "mod", "tidy"); err != nil {
-		return fmt.Errorf("unable to run 'go mod tidy' command: %v", err)
+		return errors.Wrap(err, "unable to run 'go mod tidy' command")
 	}
 	return nil
 }
