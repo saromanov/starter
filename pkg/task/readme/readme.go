@@ -49,5 +49,6 @@ func generate(name, description, author string) string {
 	}
 	builder.WriteString(fmt.Sprintf("### Author\n"))
 	builder.WriteString(fmt.Sprintf("%s\n", author))
+	builder.WriteString(fmt.Sprintf("### LICENCE\n"))
 	return builder.String()
 }
