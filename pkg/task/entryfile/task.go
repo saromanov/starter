@@ -27,8 +27,11 @@ func (d *Entryfile) String() string {
 
 // Do defines action of the task
 func (d *Entryfile) Do() error {
+	if d.p.EntryFile == "" {
+		return nil
+	}
 	d1 := []byte(fmt.Sprintf("package %s", d.p.Name))
-	fileName := fmt.Sprintf("%s/%s.go", d.p.Name, d.p.Name)
+	fileName := fmt.Sprintf("%s/%s.go", d.p.Name, d.p.EntryFile)
 	err := ioutil.WriteFile(fileName, d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
