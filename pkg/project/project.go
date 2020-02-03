@@ -23,10 +23,20 @@ func Build(p *models.Project) error {
 	if p.Makefile != "" {
 		tasks = append(tasks, makefile.New(p))
 	}
+	switch p.Type {
+	case models.Library:
+		tasks = append(tasks, buildLibrary(p)...)
+	}
+	return runTasks(tasks)
+}
+
+// buildLibrary provides building of the library project
+func buildLibrary(p *models.Project) []task.Task {
+	tasks := []task.Task{}
 	if p.EntryFile != "" {
 		tasks = append(tasks, entryfile.New(p))
 	}
-	return runTasks(tasks)
+	return tasks
 }
 
 // runTasks provides execution of tasks
