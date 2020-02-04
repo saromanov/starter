@@ -1,6 +1,7 @@
 package project
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/saromanov/starter/pkg/models"
@@ -28,6 +29,8 @@ func Build(p *models.Project) error {
 		tasks = append(tasks, buildLibrary(p)...)
 	case models.Binary:
 		tasks = append(tasks, buildBinary(p)...)
+	default:
+		return errors.New("unable to define type of the project")
 	}
 	return runTasks(tasks)
 }

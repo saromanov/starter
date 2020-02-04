@@ -31,5 +31,5 @@ func StrToProjectType(s string) ProjectType {
 	case "library":
 		return Library
 	}
-	return Unknown
+	return Library
 }
