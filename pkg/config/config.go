@@ -2,16 +2,12 @@ package config
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/saromanov/cowrow"
 )
 
 // Config provides definition of the project
 type Config struct {
-	Name       string   `yaml:"name"`
-	Author     string   `yaml:"author"`
-	GitPath    string   `yaml:"gitpath"`
 	Dockerfile string   `yaml:"dockerfile"`
 	Makefile   string   `yaml:"makefile"`
 	SubDirs    []string `yaml:"subdirs"`
@@ -24,19 +20,13 @@ func Load(path string) (*Config, error) {
 	if err := cowrow.LoadByPath(path, &c); err != nil {
 		return nil, fmt.Errorf("unable to load config: %v", err)
 	}
-
-	if c.Name == "" {
-		return nil, fmt.Errorf("name is not defined")
-	}
-
 	c.makeDefaults()
 	return c, nil
 }
 
 // makeDefaults provides filling of default config
 func (c *Config) makeDefaults() {
-	if len(c.Subdirs) == 0 {
-		c.Subdirs = []string{"cmd", "pkg"}
+	if len(c.SubDirs) == 0 {
+		c.SubDirs = []string{"cmd", "pkg"}
 	}
 }
-

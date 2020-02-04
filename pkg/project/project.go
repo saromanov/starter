@@ -1,9 +1,9 @@
 package project
 
 import (
-	"errors"
 	"fmt"
 
+	"github.com/pkg/errors"
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 	"github.com/saromanov/starter/pkg/task/dirs"

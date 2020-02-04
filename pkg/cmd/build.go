@@ -5,15 +5,23 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/pkg/errors"
+	"github.com/saromanov/starter/pkg/config"
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/project"
 )
 
 // Build provides building of the tree structure for project
-func Build(projectFlag string) error {
+func Build(projectFlag, configPath string) error {
 	pr, err := consoleRead()
 	if err != nil {
 		return err
+	}
+	if configPath != "" {
+		cfg, err := config.Load(configPath)
+		if err != nil {
+			return errors.Wrap(err, "unable to load config")
+		}
 	}
 	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {
