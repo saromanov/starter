@@ -27,7 +27,7 @@ func (d *Entryfile) String() string {
 
 // Do defines action of the task
 func (d *Entryfile) Do() error {
-	if d.p.EntryFile == "" {
+	if d.p.EntryFile == "" || d.p.EntryFile == "\n" {
 		return nil
 	}
 	d1 := []byte(fmt.Sprintf("package %s", d.p.Name))

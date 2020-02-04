@@ -25,7 +25,6 @@ func Build(projectFlag, configPath string) error {
 	if err != nil {
 		return errors.Wrap(err, "unable to read data from console")
 	}
-	fmt.Println("NAME: ", pr.Name)
 	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
@@ -69,6 +68,7 @@ func consoleRead(p *models.Project) error {
 	if err != nil {
 		return fmt.Errorf("unable to read git path: %v", err)
 	}
+
 	p.EntryFile = entryFile
 
 	return nil
