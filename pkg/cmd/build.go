@@ -22,6 +22,9 @@ func Build(projectFlag, configPath string) error {
 		if err != nil {
 			return errors.Wrap(err, "unable to load config")
 		}
+		pr.Dockerfile = cfg.Dockerfile
+		pr.Makefile = cfg.Makefile
+		pr.SubDirs = cfg.SubDirs
 	}
 	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {

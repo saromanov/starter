@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/saromanov/cowrow"
+	"github.com/saromanov/starter/pkg/models"
 )
 
 // Config provides definition of the project
@@ -22,6 +23,15 @@ func Load(path string) (*Config, error) {
 	}
 	c.makeDefaults()
 	return c, nil
+}
+
+// ToModel provides converting of the config to model
+func (c *Config) ToModel() *models.Project {
+	return &models.Project{
+		Dockerfile: c.Dockerfile,
+		Makefile:   c.Makefile,
+		SubDirs:    c.SubDirs,
+	}
 }
 
 // makeDefaults provides filling of default config
