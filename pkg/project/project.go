@@ -26,6 +26,8 @@ func Build(p *models.Project) error {
 	switch p.Type {
 	case models.Library:
 		tasks = append(tasks, buildLibrary(p)...)
+	case models.Binary:
+		tasks = append(tasks, buildBinary(p)...)
 	}
 	return runTasks(tasks)
 }
@@ -36,6 +38,12 @@ func buildLibrary(p *models.Project) []task.Task {
 	if p.EntryFile != "" {
 		tasks = append(tasks, entryfile.New(p))
 	}
+	return tasks
+}
+
+// buildBinary provides bulding of the binary project
+func buildBinary(p *models.Project) []task.Task {
+	tasks := []task.Task{dirs.New(p)}
 	return tasks
 }
 
