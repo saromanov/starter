@@ -3,6 +3,7 @@ package entryfile
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
@@ -31,10 +32,18 @@ func (d *Entryfile) Do() error {
 		return nil
 	}
 	d1 := []byte(fmt.Sprintf("package %s", d.p.Name))
-	fileName := fmt.Sprintf("%s/%s.go", d.p.Name, d.p.EntryFile)
+	fileName := d.getFileName()
 	err := ioutil.WriteFile(fileName, d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
 	}
 	return nil
+}
+
+// getFileName returns result file name
+func (d *Entryfile) getFileName() string {
+	if strings.HasSuffix(d.p.EntryFile, ".go") {
+		return fmt.Sprintf("%s/%s", d.p.Name, d.p.EntryFile)
+	}
+	return fmt.Sprintf("%s/%s.go", d.p.Name, d.p.EntryFile)
 }

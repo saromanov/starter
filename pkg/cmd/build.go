@@ -72,7 +72,7 @@ func consoleRead(p *models.Project) error {
 		return fmt.Errorf("unable to read git path: %v", err)
 	}
 
-	p.EntryFile = entryFile
+	p.EntryFile = entryFile[:len(entryFile)-1]
 
 	return nil
 }
