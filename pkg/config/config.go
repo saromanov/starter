@@ -40,3 +40,10 @@ func (c *Config) makeDefaults() {
 		c.SubDirs = []string{"cmd", "pkg"}
 	}
 }
+
+// DefaultConfig retruns default configuration for the project
+func DefaultConfig() *Config {
+	return &Config{
+		SubDirs: []string{"cmd", "pkg"},
+	}
+}

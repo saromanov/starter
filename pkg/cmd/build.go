@@ -21,6 +21,8 @@ func Build(projectFlag, configPath string) error {
 			return errors.Wrap(err, "unable to load config")
 		}
 		pr = cfg.ToModel()
+	} else {
+		pr = config.DefaultConfig().ToModel()
 	}
 	err := consoleRead(pr)
 	if err != nil {
