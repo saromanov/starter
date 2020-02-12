@@ -8,8 +8,8 @@ import (
 	"github.com/saromanov/starter/pkg/task"
 	"github.com/saromanov/starter/pkg/task/dirs"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
-	"github.com/saromanov/starter/pkg/task/entryfile"
 	"github.com/saromanov/starter/pkg/task/gitremote"
+	"github.com/saromanov/starter/pkg/task/entryfile"
 	"github.com/saromanov/starter/pkg/task/gomod"
 	"github.com/saromanov/starter/pkg/task/makefile"
 	"github.com/saromanov/starter/pkg/task/readme"
@@ -23,6 +23,9 @@ func Build(p *models.Project) error {
 	}
 	if p.Makefile != "" {
 		tasks = append(tasks, makefile.New(p))
+	}
+	if p.EntryFile != "" {
+		tasks = append(tasks, entryfile.New(p))
 	}
 	switch p.Type {
 	case models.Library:
@@ -38,9 +41,6 @@ func Build(p *models.Project) error {
 // buildLibrary provides building of the library project
 func buildLibrary(p *models.Project) []task.Task {
 	tasks := []task.Task{}
-	if p.EntryFile != "" {
-		tasks = append(tasks, entryfile.New(p))
-	}
 	return tasks
 }
 
