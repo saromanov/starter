@@ -1,10 +1,10 @@
 package dirs
 
 import (
-	"errors"
 	"fmt"
 	"os"
 
+	"github.com/pkg/errors"
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 )
@@ -34,7 +34,7 @@ func (d *Dirs) Do() error {
 		return errNoName
 	}
 	rootDir := d.p.Name
-	if err := os.Mkdir(rootDir, os.ModePerm); err != nil {
+	if err := makeRootDir(rootDir); err != nil {
 		return fmt.Errorf("unable to create root dir: %v", err)
 	}
 
@@ -42,6 +42,20 @@ func (d *Dirs) Do() error {
 		name := fmt.Sprintf("%s/%s", rootDir, dir)
 		if err := os.Mkdir(name, os.ModePerm); err != nil {
 			return fmt.Errorf("unable to create dir %s: %v", name, err)
+		}
+	}
+	return nil
+}
+
+// create root dir in the case if this is not exist
+func makeRootDir(rootDir string) error {
+	_, err := os.Stat(rootDir)
+	if err == nil {
+		return nil
+	}
+	if !os.IsExist(err) {
+		if err := os.Mkdir(rootDir, os.ModePerm); err != nil {
+			return fmt.Errorf("unable to create root dir: %v", err)
 		}
 	}
 	return nil
