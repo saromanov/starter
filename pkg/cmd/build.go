@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/saromanov/starter/pkg/config"
@@ -47,7 +48,7 @@ func consoleRead(p *models.Project) error {
 	if name == "" {
 		return errNoName
 	}
-	p.Name = name[:len(name)-1]
+	p.Name = strings.ToLower(name[:len(name)-1])
 
 	author, err := readLine(reader, "Author of the project")
 	if err != nil {
