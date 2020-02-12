@@ -46,7 +46,7 @@ func buildLibrary(p *models.Project) []task.Task {
 
 // buildBinary provides bulding of the binary project
 func buildBinary(p *models.Project) []task.Task {
-	tasks := []task.Task{dirs.New(p)}
+	tasks := []task.Task{}
 	return tasks
 }
 
