@@ -53,6 +53,9 @@ func buildBinary(p *models.Project) []task.Task {
 // runTasks provides execution of tasks
 // it contains tasks on sub dir
 func runTasks(tasks []task.Task) error {
+	if len(tasks) == 0 {
+		return nil
+	}
 	for _, t := range tasks {
 		if err := t.Do(); err != nil {
 			return fmt.Errorf("unable to execute task: '%s' %v", t.String(), err)
