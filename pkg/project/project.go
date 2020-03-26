@@ -8,8 +8,8 @@ import (
 	"github.com/saromanov/starter/pkg/task"
 	"github.com/saromanov/starter/pkg/task/dirs"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
-	"github.com/saromanov/starter/pkg/task/gitremote"
 	"github.com/saromanov/starter/pkg/task/entryfile"
+	"github.com/saromanov/starter/pkg/task/gitremote"
 	"github.com/saromanov/starter/pkg/task/gomod"
 	"github.com/saromanov/starter/pkg/task/makefile"
 	"github.com/saromanov/starter/pkg/task/readme"
@@ -51,6 +51,7 @@ func buildBinary(p *models.Project) []task.Task {
 }
 
 // runTasks provides execution of tasks
+// it contains tasks on sub dir
 func runTasks(tasks []task.Task) error {
 	for _, t := range tasks {
 		if err := t.Do(); err != nil {
