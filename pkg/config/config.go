@@ -9,9 +9,17 @@ import (
 
 // Config provides definition of the project
 type Config struct {
-	Dockerfile string   `yaml:"dockerfile"`
-	Makefile   string   `yaml:"makefile"`
-	SubDirs    []string `yaml:"subdirs"`
+	Dockerfile string            `yaml:"dockerfile"`
+	Makefile   string            `yaml:"makefile"`
+	SubDirs    []string          `yaml:"subdirs"`
+	Commands   []CommandLineSpec `yaml:"commands"`
+}
+
+// CommandLineSpec defines specification for command line
+// For example it may contains command "add"
+// Then it'll generate template for that command
+type CommandLineSpec struct {
+	Name string
 }
 
 // Load provides loading of the config
