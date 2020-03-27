@@ -33,23 +33,23 @@ func (d *Commands) String() string {
 }
 
 func generate() string {
-	s := """
+	s := `
 func Call(args []string) {
 	app := &cli.App{
 		Name:  %s,
 		Commands: %s
 	}
-	"""
+	`
 	return s
 }
 
-func generateCommand(name string ) string {
-	return ```
+func generateCommand(name string) string {
+	return `
 	{
 		Name:  "%s",
 		Action: func(c *cli.Context) error {
 			return nil
 		},
 	},
-	```
+	`
 }
