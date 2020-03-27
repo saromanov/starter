@@ -35,6 +35,18 @@ func Load(path string) (*Config, error) {
 
 // ToModel provides converting of the config to model
 func (c *Config) ToModel() *models.Project {
+	p := &models.Project{
+		Dockerfile: c.Dockerfile,
+		Makefile:   c.Makefile,
+		SubDirs:    c.SubDirs,
+	}
+	if len(c.Commands) > 0 {
+		for _, com := range c.Commands {
+			p.Commands = append(p.Commands, models.Command{
+				Name: com.Name,
+			})
+		}
+	}
 	return &models.Project{
 		Dockerfile: c.Dockerfile,
 		Makefile:   c.Makefile,

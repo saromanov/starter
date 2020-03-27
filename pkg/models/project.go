@@ -20,6 +20,11 @@ type Project struct {
 	Type        ProjectType
 	SubDirs     []string
 	EntryFile   string
+	Commands    []Command
+}
+
+type Command struct {
+	Name string
 }
 
 // StrToProjectType provides converting of
