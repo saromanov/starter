@@ -32,68 +32,14 @@ func (d *Commands) String() string {
 	return "commands"
 }
 
-// Check is entry point for the app
-func Check(args []string) {
-	app := &cli.App{
-		Name:  "fresh",
-		Usage: "Checking of newest deps",
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:  "update-all",
-				Usage: "updating all depencencies",
-			},
-			&cli.StringFlag{
-				Name:  "github-token",
-				Usage: "token for access to Github",
-			},
-		},
-		Commands: []*cli.Command{
-			{
-				Name:  "check",
-				Usage: "starting of checking",
-				Action: func(c *cli.Context) error {
-					if _, err := check(c, "go.mod"); err != nil {
-						log.Fatalf("unable to check: %v", err)
-					}
-					return nil
-				},
-			},
-			{
-				Name:  "check-and-update",
-				Usage: "checking of the deps and then update it",
-				Action: func(c *cli.Context) error {
-					if err := checkAndUpdate(c, "go.mod"); err != nil {
-						log.Fatalf("unable to check and update: %v", err)
-					}
-					return nil
-				},
-			},
-			{
-				Name:  "update",
-				Usage: "updating of deps",
-				Action: func(c *cli.Context) error {
-					if err := update(c, "go.mod"); err != nil {
-						log.Fatalf("unable to check: %v", err)
-					}
-					return nil
-				},
-			},
-		},
-	}
-
-	err := app.Run(os.Args)
-	if err != nil {
-		return
-	}
-}
 func generate() string {
-	s := ```
+	s := """
 func Entry(args []string) {
 	app := &cli.App{
 		Name:  "%s",
 		Commands: %s
 	}
-	```
+	"""
 	return s
 }
 

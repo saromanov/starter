@@ -13,6 +13,7 @@ import (
 	"github.com/saromanov/starter/pkg/task/gomod"
 	"github.com/saromanov/starter/pkg/task/makefile"
 	"github.com/saromanov/starter/pkg/task/readme"
+	"github.com/saromanov/starter/pkg/task/commands"
 )
 
 // Build provides building of the project
@@ -47,6 +48,9 @@ func buildLibrary(p *models.Project) []task.Task {
 // buildBinary provides bulding of the binary project
 func buildBinary(p *models.Project) []task.Task {
 	tasks := []task.Task{}
+	if len(p.Commands) > 0 {
+		tasks = append(tasks, commands.New(p))
+	}
 	return tasks
 }
 
