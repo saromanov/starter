@@ -34,9 +34,9 @@ func (d *Commands) String() string {
 
 func generate() string {
 	s := """
-func Entry(args []string) {
+func Call(args []string) {
 	app := &cli.App{
-		Name:  "%s",
+		Name:  %s,
 		Commands: %s
 	}
 	"""
