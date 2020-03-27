@@ -19,7 +19,7 @@ type Config struct {
 // For example it may contains command "add"
 // Then it'll generate template for that command
 type CommandLineSpec struct {
-	Name string
+	Name string `yaml:"name"`
 }
 
 // Load provides loading of the config
