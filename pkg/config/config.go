@@ -9,6 +9,8 @@ import (
 
 // Config provides definition of the project
 type Config struct {
+	Name       string            `yaml:"name"`
+	Type       string            `yaml:"type"`
 	Dockerfile string            `yaml:"dockerfile"`
 	Makefile   string            `yaml:"makefile"`
 	SubDirs    []string          `yaml:"subdirs"`
@@ -36,9 +38,11 @@ func Load(path string) (*Config, error) {
 // ToModel provides converting of the config to model
 func (c *Config) ToModel() *models.Project {
 	p := &models.Project{
+		Name:       c.Name,
 		Dockerfile: c.Dockerfile,
 		Makefile:   c.Makefile,
 		SubDirs:    c.SubDirs,
+		Type:       models.StrToProjectType(c.Type),
 	}
 	if len(c.Commands) > 0 {
 		for _, com := range c.Commands {
@@ -47,11 +51,7 @@ func (c *Config) ToModel() *models.Project {
 			})
 		}
 	}
-	return &models.Project{
-		Dockerfile: c.Dockerfile,
-		Makefile:   c.Makefile,
-		SubDirs:    c.SubDirs,
-	}
+	return p
 }
 
 // makeDefaults provides filling of default config

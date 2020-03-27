@@ -11,8 +11,7 @@ import (
 
 func build(c *cli.Context) error {
 	projectFlag := c.String("project")
-	config := c.String("config")
-	if err := cmd.Build(projectFlag, config); err != nil {
+	if err := cmd.Build(projectFlag); err != nil {
 		logrus.Fatalf("unable to run project project: %v", err)
 	}
 
@@ -24,7 +23,7 @@ func config(c *cli.Context) error {
 	if conf == "" {
 		return fmt.Errorf("config is not defined")
 	}
-	if err := cmd.Build("", conf); err != nil {
+	if err := cmd.BuildFromConfig(conf); err != nil {
 		logrus.Fatalf("unable to run project project: %v", err)
 	}
 

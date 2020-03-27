@@ -13,7 +13,22 @@ import (
 )
 
 // Build provides building of the tree structure for project
-func Build(projectFlag, configPath string) error {
+func Build(projectFlag string) error {
+	pr := &models.Project{}
+	err := consoleRead(pr)
+	if err != nil {
+		return errors.Wrap(err, "unable to read data from console")
+	}
+	pr.Type = models.StrToProjectType(projectFlag)
+	if err := project.Build(pr); err != nil {
+		return fmt.Errorf("unable to build project: %v", err)
+	}
+
+	return nil
+}
+
+// BuildFromConfig provides building of the project from config
+func BuildFromConfig(configPath string) error {
 	pr := &models.Project{}
 	if configPath != "" {
 		cfg, err := config.Load(configPath)
@@ -24,15 +39,9 @@ func Build(projectFlag, configPath string) error {
 	} else {
 		pr = config.DefaultConfig().ToModel()
 	}
-	err := consoleRead(pr)
-	if err != nil {
-		return errors.Wrap(err, "unable to read data from console")
-	}
-	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
 	}
-
 	return nil
 }
 
