@@ -3,5 +3,5 @@ package hosting
 
 // Hosting defines interface for code hosting
 type Hosting interface {
-	CreateRepo(string, string) error
+	CreateRepo() error
 }

@@ -7,18 +7,18 @@ import (
 	"os"
 
 	"github.com/google/go-github/github"
-	"github.com/saromanov/starter/pkg/config"
+	"github.com/saromanov/starter/pkg/models"
 	"golang.org/x/oauth2"
 )
 
 // Github defines representation with github
 type Github struct {
 	client *github.Client
-	conf   *config.Config
+	conf   *models.Project
 }
 
 // New provides initialization of the Github client
-func New(c *config.Config) *Github {
+func New(c *models.Project) *Github {
 	return &Github{
 		conf:   c,
 		client: makeClient(),
@@ -36,12 +36,20 @@ func makeClient() *github.Client {
 }
 
 // CreateRepo provides creating of the repo
-func (g *Github) CreateRepo(author, name string) error {
-	_, _, err := g.client.Repositories.Create(context.Background(), author, &github.Repository{
-		Name: &name,
+func (g *Github) CreateRepo() error {
+	_, _, err := g.client.Repositories.Create(context.Background(), "saromanov", &github.Repository{
+		Name: &g.conf.Name,
 	})
 	if err != nil {
 		return fmt.Errorf("unable to create repository")
 	}
 	return nil
+}
+
+func (g *Github) Do() error {
+	return g.CreateRepo()
+}
+
+func (g *Github) String() string {
+	return "hosting-github"
 }

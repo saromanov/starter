@@ -21,6 +21,7 @@ type Project struct {
 	SubDirs     []string
 	EntryFile   string
 	Commands    []Command
+	HostingPath string
 }
 
 type Command struct {
