@@ -63,8 +63,8 @@ func (g *Github) applyGitRemote() error {
 	if err != nil {
 		return fmt.Errorf("unabale to get github user: %v", err)
 	}
-	fmt.Println("NAME: ", *user.Name)
-	g.conf.GitPath = fmt.Sprintf("https://github.com/%s/%s.git", *user.Name, g.conf.Name)
+	fmt.Println("NAME: ", user.GetLogin())
+	g.conf.GitPath = fmt.Sprintf("https://github.com/%s/%s.git", user.GetLogin(), g.conf.Name)
 	gr := gitremote.New(g.conf)
 	if err := gr.Do(); err != nil {
 		return fmt.Errorf("unable to add git remote path: %v", err)
