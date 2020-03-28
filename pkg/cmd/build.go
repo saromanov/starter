@@ -83,6 +83,9 @@ func consoleRead(p *models.Project) error {
 
 	p.EntryFile = entryFile[:len(entryFile)-1]
 
+	if err := applyRepoConfig(reader, p); err != nil {
+		return fmt.Errorf("unable to get repo name")
+	}
 	return nil
 }
 
@@ -99,4 +102,17 @@ func readLine(reader *bufio.Reader, name string) (string, error) {
 // from input with project-layout
 func validateDirectories(dirs []string) ([]string, error) {
 	return dirs, nil
+}
+
+// applyRepoConfig provides configuration for creating repo name
+func applyRepoConfig(reader *bufio.Reader, p *models.Project) error {
+	data, err := readLine(reader, "Create repo at Github y/n")
+	if err != nil {
+		return fmt.Errorf("unable to read user input: %v", err)
+	}
+	if data != "y" {
+		return nil
+	}
+	p.GitPath = p.Name
+	return nil
 }
