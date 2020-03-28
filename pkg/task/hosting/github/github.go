@@ -37,15 +37,17 @@ func makeClient() *github.Client {
 
 // CreateRepo provides creating of the repo
 func (g *Github) CreateRepo() error {
-	_, _, err := g.client.Repositories.Create(context.Background(), "saromanov", &github.Repository{
-		Name: &g.conf.Name,
+	_, _, err := g.client.Repositories.Create(context.Background(), "", &github.Repository{
+		Name:        &g.conf.Name,
+		Description: &g.conf.HostingDescription,
 	})
 	if err != nil {
-		return fmt.Errorf("unable to create repository")
+		return fmt.Errorf("unable to create repository: %v", err)
 	}
 	return nil
 }
 
+// Do provides execution of the task
 func (g *Github) Do() error {
 	return g.CreateRepo()
 }

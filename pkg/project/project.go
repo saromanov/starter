@@ -6,14 +6,15 @@ import (
 	"github.com/pkg/errors"
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
+	"github.com/saromanov/starter/pkg/task/commands"
 	"github.com/saromanov/starter/pkg/task/dirs"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
 	"github.com/saromanov/starter/pkg/task/entryfile"
 	"github.com/saromanov/starter/pkg/task/gitremote"
 	"github.com/saromanov/starter/pkg/task/gomod"
+	"github.com/saromanov/starter/pkg/task/hosting/github"
 	"github.com/saromanov/starter/pkg/task/makefile"
 	"github.com/saromanov/starter/pkg/task/readme"
-	"github.com/saromanov/starter/pkg/task/commands"
 )
 
 // Build provides building of the project
@@ -27,6 +28,9 @@ func Build(p *models.Project) error {
 	}
 	if p.EntryFile != "" {
 		tasks = append(tasks, entryfile.New(p))
+	}
+	if p.HostingDescription != "" {
+		tasks = append(tasks, github.New(p))
 	}
 	switch p.Type {
 	case models.Library:

@@ -11,17 +11,17 @@ const (
 
 // Project provides definition of the project
 type Project struct {
-	Name        string
-	Author      string
-	GitPath     string
-	Description string
-	Dockerfile  string
-	Makefile    string
-	Type        ProjectType
-	SubDirs     []string
-	EntryFile   string
-	Commands    []Command
-	HostingPath string
+	Name               string
+	Author             string
+	GitPath            string
+	Description        string
+	Dockerfile         string
+	Makefile           string
+	Type               ProjectType
+	SubDirs            []string
+	EntryFile          string
+	Commands           []Command
+	HostingDescription string
 }
 
 type Command struct {
