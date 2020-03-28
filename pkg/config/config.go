@@ -9,12 +9,13 @@ import (
 
 // Config provides definition of the project
 type Config struct {
-	Name       string            `yaml:"name"`
-	Type       string            `yaml:"type"`
-	Dockerfile string            `yaml:"dockerfile"`
-	Makefile   string            `yaml:"makefile"`
-	SubDirs    []string          `yaml:"subdirs"`
-	Commands   []CommandLineSpec `yaml:"commands"`
+	Name        string            `yaml:"name"`
+	Type        string            `yaml:"type"`
+	Dockerfile  string            `yaml:"dockerfile"`
+	Makefile    string            `yaml:"makefile"`
+	SubDirs     []string          `yaml:"subdirs"`
+	Commands    []CommandLineSpec `yaml:"commands"`
+	HostingPath string            `yaml:"hostingPath"`
 }
 
 // CommandLineSpec defines specification for command line
