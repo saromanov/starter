@@ -19,7 +19,7 @@ import (
 
 // Build provides building of the project
 func Build(p *models.Project) error {
-	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p), gitremote.New(p)}
+	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p)}
 	if p.Dockerfile != "" {
 		tasks = append(tasks, dockerfile.New(p))
 	}
@@ -31,6 +31,8 @@ func Build(p *models.Project) error {
 	}
 	if p.HostingDescription != "" {
 		tasks = append(tasks, github.New(p))
+	} else {
+		tasks = append(tasks, gitremote.New(p))
 	}
 	switch p.Type {
 	case models.Library:

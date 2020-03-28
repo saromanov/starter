@@ -88,8 +88,9 @@ func consoleRead(p *models.Project) error {
 		return fmt.Errorf("unable to get repo name")
 	}
 	if hostingDescription != "" {
-		p.HostingDescription = hostingDescription
+		p.HostingDescription = hostingDescription[:len(hostingDescription)-1]
 	}
+	fmt.Println("HOSTING: ", p.HostingDescription)
 	return nil
 }
 
