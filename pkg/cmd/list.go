@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 )
 
 const envVariable = "STARTER_TEMPLATES"
@@ -26,7 +27,7 @@ func ListTemplates() error {
 		if f.IsDir() {
 			continue
 		}
-		fmt.Println(path.Ext(f.Name()))
+		fmt.Println(strings.Trim(f.Name(), path.Ext(f.Name())))
 	}
 	return nil
 }
