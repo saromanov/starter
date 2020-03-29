@@ -30,6 +30,13 @@ func config(c *cli.Context) error {
 	return nil
 }
 
+func listTemplates(c *cli.Context) error {
+	if err := cmd.ListTemplates(); err != nil {
+		logrus.Fatalf("unable to get list of templates: %v", err)
+	}
+	return nil
+}
+
 func main() {
 	app := &cli.App{
 		Name:  "starter",
@@ -56,6 +63,11 @@ func main() {
 				Name:   "config",
 				Usage:  "building of the new project from config",
 				Action: config,
+			},
+			{
+				Name:   "list",
+				Usage:  "get list of templates",
+				Action: listTemplates,
 			},
 		},
 	}
