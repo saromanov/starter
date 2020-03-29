@@ -90,7 +90,6 @@ func consoleRead(p *models.Project) error {
 	if hostingDescription != "" {
 		p.HostingDescription = hostingDescription[:len(hostingDescription)-1]
 	}
-	fmt.Println("HOSTING: ", p.HostingDescription)
 	return nil
 }
 

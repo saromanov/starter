@@ -67,6 +67,7 @@ func runTasks(tasks []task.Task) error {
 		return nil
 	}
 	for _, t := range tasks {
+		fmt.Printf("Starting of %s task\n", t.String())
 		if err := t.Do(); err != nil {
 			return fmt.Errorf("unable to execute task: '%s' %v", t.String(), err)
 		}
