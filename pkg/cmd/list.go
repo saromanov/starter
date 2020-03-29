@@ -15,7 +15,7 @@ const envVariable = "STARTER_TEMPLATES"
 func ListTemplates() error {
 	dir := os.Getenv(envVariable)
 	if dir == "" {
-		return fmt.Errorf("%s is not defined", dir)
+		return fmt.Errorf("%s is not defined", envVariable)
 	}
 
 	files, err := ioutil.ReadDir(dir)
