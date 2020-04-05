@@ -23,6 +23,7 @@ type Project struct {
 	Commands           []Command
 	HostingDescription string
 	Badges             []string
+	Username           string
 }
 
 type Command struct {

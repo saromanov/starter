@@ -90,6 +90,21 @@ func consoleRead(p *models.Project) error {
 	if hostingDescription != "" {
 		p.HostingDescription = hostingDescription[:len(hostingDescription)-1]
 	}
+
+	username, err := readLine(reader, "Enter Github username(optional)")
+	if err != nil {
+		return fmt.Errorf("unable to read badge line: %v", err)
+	}
+	p.Username = username[:len(username)-1]
+
+	if p.Username != "" {
+		badges, err := readLine(reader, "Entry badges to README. Separate it with commas. Supported: godoc,goreportcard")
+		if err != nil {
+			return fmt.Errorf("unable to read badge line: %v", err)
+		}
+		badgesRaw := badges[:len(badges)-1]
+		p.Badges = strings.Split(badgesRaw, ",")
+	}
 	return nil
 }
 

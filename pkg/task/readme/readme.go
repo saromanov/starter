@@ -48,7 +48,7 @@ func generate(p *models.Project) string {
 		plugins = append(plugins, addBadges)
 	}
 	for _, plugin := range plugins {
-		plugin(builder, p)
+		plugin(&builder, p)
 	}
 	builder.WriteString(fmt.Sprintf("### Author\n"))
 	builder.WriteString(fmt.Sprintf("%s\n", p.Author))
