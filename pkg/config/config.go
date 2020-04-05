@@ -16,6 +16,7 @@ type Config struct {
 	SubDirs     []string          `yaml:"subdirs"`
 	Commands    []CommandLineSpec `yaml:"commands"`
 	HostingPath string            `yaml:"hostingPath"`
+	Badges      string            `yaml:"badges"`
 }
 
 // CommandLineSpec defines specification for command line

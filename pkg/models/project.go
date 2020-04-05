@@ -22,6 +22,7 @@ type Project struct {
 	EntryFile          string
 	Commands           []Command
 	HostingDescription string
+	Badges             string
 }
 
 type Command struct {

@@ -1,7 +1,7 @@
 # starter
 Starter repo for Go projects. Generate of the project layout
 
-```go
+```sh
 starter build
 ```
 
@@ -11,3 +11,11 @@ You can store templates for building at special directory. That directory you sh
 
 ```
 export STARTER_TEMPLATES=/home/.starter-templates
+
+Command 
+
+```sh
+starter list
+```
+
+will return list of registered templates at STARTER_TEMPLATES

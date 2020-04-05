@@ -52,3 +52,21 @@ func generate(name, description, author string) string {
 	builder.WriteString(fmt.Sprintf("### LICENCE\n"))
 	return builder.String()
 }
+
+func addBadges(builder strings.Builder, badges []string, username, repo string) error {
+	data := map[string]string{
+		"goreportcard": "[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)",
+		"godoc":        "[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)",
+	}
+
+	for _, b := range badges {
+		link, ok := data[b]
+		if !ok {
+			continue
+		}
+		if _, err := builder.WriteString(fmt.Sprintf(link, username, repo)); err != nil {
+			return fmt.Errorf("unable to generate badges: %v", err)
+		}
+	}
+	return nil
+}
