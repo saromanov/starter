@@ -31,7 +31,7 @@ func (d *Readme) String() string {
 
 // Do defines action of the task
 func (d *Readme) Do() error {
-	d1 := []byte(generate(d.p.Name, d.p.Description, d.p.Author))
+	d1 := []byte(generate(d.p))
 	err := ioutil.WriteFile(fmt.Sprintf("%s/README.md", d.p.Name), d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to write readme: %v", err)
@@ -39,34 +39,19 @@ func (d *Readme) Do() error {
 	return nil
 }
 
-func generate(name, description, author string) string {
+// generate provides generating of the README
+func generate(p *models.Project) string {
 	var builder strings.Builder
-	builder.WriteString(fmt.Sprintf("# %s\n", name))
-	if description != "" {
-		builder.WriteString(fmt.Sprintf("%s\n", description))
-	} else {
-		builder.WriteString("\n")
+	builder.WriteString(fmt.Sprintf("# %s\n", p.Name))
+	plugins := []Plugin{description}
+	if len(p.Badges) > 0 {
+		plugins = append(plugins, addBadges)
+	}
+	for _, plugin := range plugins {
+		plugin(builder, p)
 	}
 	builder.WriteString(fmt.Sprintf("### Author\n"))
-	builder.WriteString(fmt.Sprintf("%s\n", author))
+	builder.WriteString(fmt.Sprintf("%s\n", p.Author))
 	builder.WriteString(fmt.Sprintf("### LICENCE\n"))
 	return builder.String()
-}
-
-func addBadges(builder strings.Builder, badges []string, username, repo string) error {
-	data := map[string]string{
-		"goreportcard": "[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)",
-		"godoc":        "[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)",
-	}
-
-	for _, b := range badges {
-		link, ok := data[b]
-		if !ok {
-			continue
-		}
-		if _, err := builder.WriteString(fmt.Sprintf(link, username, repo)); err != nil {
-			return fmt.Errorf("unable to generate badges: %v", err)
-		}
-	}
-	return nil
 }
