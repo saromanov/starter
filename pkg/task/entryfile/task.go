@@ -51,7 +51,7 @@ func (d *Entryfile) Do() error {
 func (d *Entryfile) createSubDirs() (string, error) {
 	subDirs := path.Dir(d.p.EntryFile)
 	if subDirs == "." {
-		return d.p.EntryFile, nil
+		return fmt.Sprintf("%s/%s", d.p.Name, d.p.EntryFile), nil
 	}
 	if strings.HasPrefix(subDirs, "./") {
 		subDirs = subDirs[2:len(subDirs)]
@@ -72,7 +72,7 @@ func (d *Entryfile) getPackageName(resultPath string) string {
 	dirs, _ := path.Split(resultPath)
 	result := strings.Split(dirs, "/")
 	if len(result) == 1 {
-		return result[1]
+		return result[0]
 	}
 	return result[len(result)-2]
 }
