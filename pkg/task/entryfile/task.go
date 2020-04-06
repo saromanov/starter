@@ -30,7 +30,7 @@ func (d *Entryfile) String() string {
 
 // Do defines action of the task
 func (d *Entryfile) Do() error {
-	if d.p.EntryFile == "" || d.p.EntryFile == "\n" {
+	if d.p == nil || d.p.EntryFile == "" || d.p.EntryFile == "\n" {
 		return nil
 	}
 	subPath, err := d.createSubDirs()
@@ -38,7 +38,7 @@ func (d *Entryfile) Do() error {
 		return fmt.Errorf("unable to create subdirs: %v", err)
 	}
 	fileName := getFileName(subPath)
-	d1 := []byte(fmt.Sprintf("package %s", d.getPackageName(fileName)))
+	d1 := []byte(fmt.Sprintf("package %s", getPackageName(fileName)))
 	if err = ioutil.WriteFile(fileName, d1, 0644); err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
 	}
@@ -60,7 +60,7 @@ func (d *Entryfile) createSubDirs() (string, error) {
 }
 
 // getPackageName returns package name
-func (d *Entryfile) getPackageName(resultPath string) string {
+func getPackageName(resultPath string) string {
 	dirs, _ := path.Split(resultPath)
 	result := strings.Split(dirs, "/")
 	if len(result) == 1 {

@@ -29,15 +29,13 @@ func Build(projectFlag string) error {
 
 // BuildFromConfig provides building of the project from config
 func BuildFromConfig(configPath string) error {
-	pr := &models.Project{}
+	pr := config.DefaultConfig().ToModel()
 	if configPath != "" {
 		cfg, err := config.Load(configPath)
 		if err != nil {
 			return errors.Wrap(err, "unable to load config")
 		}
 		pr = cfg.ToModel()
-	} else {
-		pr = config.DefaultConfig().ToModel()
 	}
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
