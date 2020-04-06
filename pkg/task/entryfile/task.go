@@ -37,7 +37,7 @@ func (d *Entryfile) Do() error {
 	if err != nil {
 		return fmt.Errorf("unable to create subdirs: %v", err)
 	}
-	fileName := d.getFileName(subPath)
+	fileName := getFileName(subPath)
 	d1 := []byte(fmt.Sprintf("package %s", d.getPackageName(fileName)))
 	if err = ioutil.WriteFile(fileName, d1, 0644); err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
@@ -59,14 +59,6 @@ func (d *Entryfile) createSubDirs() (string, error) {
 	return fmt.Sprintf("%s%s", d.p.Name, d.p.EntryFile), os.MkdirAll(fmt.Sprintf("%s%s", d.p.Name, subDirs), 0777)
 }
 
-// getFileName returns result file name
-func (d *Entryfile) getFileName(resultPath string) string {
-	if strings.HasSuffix(resultPath, ".go") {
-		return resultPath
-	}
-	return fmt.Sprintf("%s.go", resultPath)
-}
-
 // getPackageName returns package name
 func (d *Entryfile) getPackageName(resultPath string) string {
 	dirs, _ := path.Split(resultPath)
@@ -75,4 +67,12 @@ func (d *Entryfile) getPackageName(resultPath string) string {
 		return result[0]
 	}
 	return result[len(result)-2]
+}
+
+// getFileName returns result file name
+func getFileName(resultPath string) string {
+	if strings.HasSuffix(resultPath, ".go") {
+		return resultPath
+	}
+	return fmt.Sprintf("%s.go", resultPath)
 }
