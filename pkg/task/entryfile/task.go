@@ -37,8 +37,8 @@ func (d *Entryfile) Do() error {
 	if err != nil {
 		return fmt.Errorf("unable to create subdirs: %v", err)
 	}
-	d1 := []byte(fmt.Sprintf("package %s", d.p.Name))
 	fileName := d.getFileName(subPath)
+	d1 := []byte(fmt.Sprintf("package %s", d.getPackageName(fileName)))
 	if err = ioutil.WriteFile(fileName, d1, 0644); err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
 	}
@@ -65,4 +65,14 @@ func (d *Entryfile) getFileName(resultPath string) string {
 		return resultPath
 	}
 	return fmt.Sprintf("%s.go", resultPath)
+}
+
+// getPackageName returns package name
+func (d *Entryfile) getPackageName(resultPath string) string {
+	dirs, _ := path.Split(resultPath)
+	result := strings.Split(dirs, "/")
+	if len(result) == 1 {
+		return result[1]
+	}
+	return result[len(result)-2]
 }
