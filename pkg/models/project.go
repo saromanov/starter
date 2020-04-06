@@ -9,6 +9,16 @@ const (
 	Unknown
 )
 
+func (p ProjectType) String() string {
+	switch p {
+	case Binary:
+		return "binary"
+	case Library:
+		return "library"
+	}
+	return "unknown"
+}
+
 // Project provides definition of the project
 type Project struct {
 	Name               string

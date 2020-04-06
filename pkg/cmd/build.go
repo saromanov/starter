@@ -15,11 +15,11 @@ import (
 // Build provides building of the tree structure for project
 func Build(projectFlag string) error {
 	pr := &models.Project{}
+	pr.Type = models.StrToProjectType(projectFlag)
 	err := consoleRead(pr)
 	if err != nil {
 		return errors.Wrap(err, "unable to read data from console")
 	}
-	pr.Type = models.StrToProjectType(projectFlag)
 	if err := project.Build(pr); err != nil {
 		return fmt.Errorf("unable to build project: %v", err)
 	}
@@ -47,7 +47,7 @@ func BuildFromConfig(configPath string) error {
 
 func consoleRead(p *models.Project) error {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Add definition of the project")
+	fmt.Printf(fmt.Sprintf("Add definition of the project(%v)\n", p.Type.String()))
 	fmt.Println("---------------------")
 	name, err := readLine(reader, "Name of the project")
 	if err != nil {
