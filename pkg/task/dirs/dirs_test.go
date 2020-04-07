@@ -42,4 +42,6 @@ func TestDirs(t *testing.T) {
 	})
 	assert.NoError(t, p.Do())
 	assert.NoError(t, removeContentFromRoot(rootTestDir))
+	assert.Error(t, New(&models.Project{}).Do())
+	assert.Error(t, New(&models.Project{Name: "acccc"}).Do())
 }
