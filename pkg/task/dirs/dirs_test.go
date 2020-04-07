@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/saromanov/starter/pkg/models"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -31,5 +32,14 @@ func removeContentFromRoot(dir string) error {
 
 func TestMakeRootDir(t *testing.T) {
 	assert.NoError(t, makeRootDir(rootTestDir))
+	assert.NoError(t, removeContentFromRoot(rootTestDir))
+}
+
+func TestDirs(t *testing.T) {
+	p := New(&models.Project{
+		Name:    rootTestDir,
+		SubDirs: []string{"abc", "foobar"},
+	})
+	assert.NoError(t, p.Do())
 	assert.NoError(t, removeContentFromRoot(rootTestDir))
 }
