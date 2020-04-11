@@ -34,6 +34,7 @@ type Project struct {
 	HostingDescription string
 	Badges             []string
 	Username           string
+	CI                 []CIActions
 }
 
 type Command struct {

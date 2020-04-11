@@ -103,6 +103,11 @@ func consoleRead(p *models.Project) error {
 		badgesRaw := badges[:len(badges)-1]
 		p.Badges = strings.Split(badgesRaw, ",")
 	}
+	ciRaw, err := readLine(reader, "Enter CI providers(optional). Supported (github)")
+	if err != nil {
+		return fmt.Errorf("unable to read badge line: %v", err)
+	}
+	p.CI = strings.Split(ciRaw[:len(ciRaw)-1], ",")
 	return nil
 }
 
