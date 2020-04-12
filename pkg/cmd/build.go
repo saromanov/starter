@@ -107,7 +107,7 @@ func consoleRead(p *models.Project) error {
 	if err != nil {
 		return fmt.Errorf("unable to read badge line: %v", err)
 	}
-	p.CI = strings.Split(ciRaw[:len(ciRaw)-1], ",")
+	p.CI = toCIActions(strings.Split(ciRaw[:len(ciRaw)-1], ","))
 	return nil
 }
 
@@ -124,6 +124,14 @@ func readLine(reader *bufio.Reader, name string) (string, error) {
 // from input with project-layout
 func validateDirectories(dirs []string) ([]string, error) {
 	return dirs, nil
+}
+
+func toCIActions(data []string) []models.CIActionType {
+	result := make([]models.CIActionType, len(data))
+	for i, d := range data {
+		result[i] = models.ToCIActionType(d)
+	}
+	return result
 }
 
 // readRepoConfig provides configuration for creating repo name
