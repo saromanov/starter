@@ -2,6 +2,9 @@
 package ci
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
 )
@@ -32,9 +35,18 @@ func (d *Task) Do() error {
 
 	for _, a := range d.p.CI {
 		if a == models.Github {
-
+			makeGithubActions(d.p.Name)
 		}
 	}
 
 	return nil
+}
+
+// makeGithubActiosn creates subdirs for ci/cd pipeline on Github
+func makeGithubActions(path string) error {
+	wfPath := fmt.Sprintf("%s/%s/%s", path, ".github", "workflows")
+	if err := os.MkdirAll(wfPath, os.ModePerm); err != nil {
+		return fmt.Errorf("unable to create github flow")
+	}
+	return task.MoveFile("./assets/go.yml", wfPath+"/go.yml")
 }
