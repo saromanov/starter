@@ -6,6 +6,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/saromanov/starter/pkg/models"
 	"github.com/saromanov/starter/pkg/task"
+	"github.com/saromanov/starter/pkg/task/ci"
 	"github.com/saromanov/starter/pkg/task/commands"
 	"github.com/saromanov/starter/pkg/task/dirs"
 	"github.com/saromanov/starter/pkg/task/dockerfile"
@@ -33,6 +34,9 @@ func Build(p *models.Project) error {
 		tasks = append(tasks, github.New(p))
 	} else {
 		tasks = append(tasks, gitremote.New(p))
+	}
+	if len(p.CI) > 0 {
+		tasks = append(tasks, ci.New(p))
 	}
 	switch p.Type {
 	case models.Library:
