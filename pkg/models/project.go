@@ -19,6 +19,25 @@ func (p ProjectType) String() string {
 	return "unknown"
 }
 
+// CIActionType defines supported type for ci/cd
+type CIActionType int
+
+const (
+	Github CIActionType = iota + 1
+	Travis
+	Unsupported
+)
+
+// ToCIActionType converts string to ci type
+func ToCIActionType(s string) CIActionType {
+	if s == "github" {
+		return Github
+	} else if s == "travis" {
+		return Travis
+	}
+	return Unsupported
+}
+
 // Project provides definition of the project
 type Project struct {
 	Name               string
@@ -34,7 +53,7 @@ type Project struct {
 	HostingDescription string
 	Badges             []string
 	Username           string
-	CI                 []CIActions
+	CI                 []CIActionType
 }
 
 type Command struct {

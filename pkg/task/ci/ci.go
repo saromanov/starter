@@ -6,25 +6,6 @@ import (
 	"github.com/saromanov/starter/pkg/task"
 )
 
-// CIActions defines supported type for ci/cd
-type CIActions string
-
-var (
-	Github CIActions = "github"
-	Travis CIActions = "travis"
-	Unsupported CIActions = "unsupported"
-)
-
-// ToCIActions converts string to ci type
-func ToCIActions(s string) CIActions {
-	if s == "github" {
-		return Github
-	} else if s == "travis" {
-		return Travis
-	}
-	return Unsupported
-}
-
 // Task defines task for makign directories
 type Task struct {
 	p *models.Project
@@ -50,7 +31,7 @@ func (d *Task) Do() error {
 	}
 
 	for _, a := range d.p.CI {
-		if a == string(Github {
+		if a == models.Github {
 
 		}
 	}
