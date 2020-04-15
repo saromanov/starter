@@ -19,6 +19,7 @@ You can store templates for building at special directory. That directory you sh
 
 ```
 export STARTER_TEMPLATES=/home/.starter-templates
+```
 
 Command 
 
