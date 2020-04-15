@@ -107,6 +107,7 @@ func consoleRead(p *models.Project) error {
 	if err != nil {
 		return fmt.Errorf("unable to read badge line: %v", err)
 	}
+	ciRaw = ciRaw[:len(ciRaw)-1]
 	if len(ciRaw) > 0 {
 		p.CI = toCIActions(strings.Split(ciRaw[:len(ciRaw)-1], ","))
 	}

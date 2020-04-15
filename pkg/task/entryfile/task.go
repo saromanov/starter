@@ -37,7 +37,9 @@ func (d *Entryfile) Do() error {
 	if err != nil {
 		return fmt.Errorf("unable to create subdirs: %v", err)
 	}
+	fmt.Println("SUBPATH: ", subPath)
 	fileName := getFileName(subPath)
+	fmt.Println("FILENAME: ", fileName)
 	d1 := []byte(fmt.Sprintf("package %s", getPackageName(fileName)))
 	if err = ioutil.WriteFile(fileName, d1, 0644); err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
@@ -56,7 +58,7 @@ func (d *Entryfile) createSubDirs() (string, error) {
 	if strings.HasPrefix(subDirs, "./") {
 		subDirs = subDirs[2:len(subDirs)]
 	}
-	return fmt.Sprintf("%s%s", d.p.Name, d.p.EntryFile), os.MkdirAll(fmt.Sprintf("%s%s", d.p.Name, subDirs), 0777)
+	return fmt.Sprintf("%s/%s", d.p.Name, d.p.EntryFile), os.MkdirAll(fmt.Sprintf("%s/%s", d.p.Name, subDirs), 0777)
 }
 
 // getPackageName returns package name
