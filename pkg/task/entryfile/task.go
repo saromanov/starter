@@ -37,10 +37,8 @@ func (d *Entryfile) Do() error {
 	if err != nil {
 		return fmt.Errorf("unable to create subdirs: %v", err)
 	}
-	fmt.Println("SUBPATH: ", subPath)
 	fileName := getFileName(subPath)
-	fmt.Println("FILENAME: ", fileName)
-	d1 := []byte(fmt.Sprintf("package %s", getPackageName(fileName)))
+	d1 := genFileContent(getPackageName(fileName), d.p)
 	if err = ioutil.WriteFile(fileName, d1, 0644); err != nil {
 		return fmt.Errorf("unable to write file %s: %v", fileName, err)
 	}
@@ -77,4 +75,16 @@ func getFileName(resultPath string) string {
 		return resultPath
 	}
 	return fmt.Sprintf("%s.go", resultPath)
+}
+
+// genFileContent provides generation of the file content
+// depends of project type
+func genFileContent(fileName string, p *models.Project) []byte {
+	switch p.Type {
+	case models.Library:
+		return []byte(fmt.Sprintf("package %s", getPackageName(fileName)))
+	case models.Binary:
+		return []byte("package main\n\nfunc main() {\n\n}\n")
+	}
+	return nil
 }
