@@ -26,6 +26,9 @@ func (d *Gitremote) String() string {
 
 // Do defines action of the task
 func (d *Gitremote) Do() error {
+	if d.p == nil {
+		return nil
+	}
 	if d.p.GitPath == "" {
 		return nil
 	}
