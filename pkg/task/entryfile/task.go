@@ -63,6 +63,7 @@ func (d *Entryfile) createSubDirs() (string, error) {
 func getPackageName(resultPath string) string {
 	dirs, _ := path.Split(resultPath)
 	result := strings.Split(dirs, "/")
+
 	if len(result) == 1 {
 		return result[0]
 	}
@@ -82,7 +83,7 @@ func getFileName(resultPath string) string {
 func genFileContent(fileName string, p *models.Project) []byte {
 	switch p.Type {
 	case models.Library:
-		return []byte(fmt.Sprintf("package %s", getPackageName(fileName)))
+		return []byte(fmt.Sprintf("package %s", fileName))
 	case models.Binary:
 		return []byte("package main\n\nfunc main() {\n\n}\n")
 	}
