@@ -62,6 +62,12 @@ func TestGetPackageName(t *testing.T) {
 
 func TestGenFileContent(t *testing.T) {
 	assert.Equal(t, "package cmd", string(genFileContent("cmd", &models.Project{
+		Type: models.Library,
+	})))
+	assert.Equal(t, "package main\n\nfunc main() {\n\n}\n", string(genFileContent("cmd", &models.Project{
 		Type: models.Binary,
+	})))
+	assert.Equal(t, "", string(genFileContent("cmd", &models.Project{
+		Type: models.Unknown,
 	})))
 }
