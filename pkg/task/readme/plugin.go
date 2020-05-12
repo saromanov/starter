@@ -39,3 +39,21 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 	builder.WriteString("\n")
 	return nil
 }
+
+func godocBadge(builder *strings.Builder) error {
+	line := "[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)"
+	return writeBadge(builder, "godoc", line)
+}
+
+func goreportcardBadge(builder *strings.Builder) error {
+	line := "[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)"
+	return writeBadge(builder, "godoc", line)
+}
+
+func writeBadge(builder *strings.Builder, name, link string) error {
+	if _, err := builder.WriteString(link); err != nil {
+		return fmt.Errorf("unable to generate badges %s: %v", name, err)
+	}
+
+	return nil
+}
