@@ -45,7 +45,7 @@ func BuildFromConfig(configPath string) error {
 
 func consoleRead(p *models.Project) error {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf(fmt.Sprintf("Add definition of the project(%v)\n", p.Type.String()))
+	fmt.Printf("Add definition of the project(%v)\n", p.Type.String())
 	fmt.Println("---------------------")
 	name, err := readLine(reader, "Name of the project")
 	if err != nil {
@@ -121,12 +121,6 @@ func readLine(reader *bufio.Reader, name string) (string, error) {
 		return "", fmt.Errorf("unable to read line: %v", err)
 	}
 	return line, nil
-}
-
-// validateDirectories provides validation of the dirs
-// from input with project-layout
-func validateDirectories(dirs []string) ([]string, error) {
-	return dirs, nil
 }
 
 func toCIActions(data []string) []models.CIActionType {
