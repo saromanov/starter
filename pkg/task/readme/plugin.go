@@ -22,18 +22,19 @@ func description(b *strings.Builder, p *models.Project) error {
 }
 
 func addBadges(builder *strings.Builder, p *models.Project) error {
-	data := map[string]string{
-		"goreportcard": "[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)",
-		"godoc":        "[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)",
+	data := map[string]func(*strings.Builder) error{
+		"goreportcard": goreportcardBadge,
+		"godoc":        godocBadge,
 	}
 
 	for _, b := range p.Badges {
-		link, ok := data[b]
+		badge, ok := data[b]
 		if !ok {
 			continue
 		}
-		if _, err := builder.WriteString(fmt.Sprintf(link, p.Username, p.Name, p.Username, p.Name)); err != nil {
-			return fmt.Errorf("unable to generate badges: %v", err)
+
+		if err := badge(builder); err != nil {
+			return fmt.Errorf("unabke to generate badge: %v", err)
 		}
 	}
 	builder.WriteString("\n")
