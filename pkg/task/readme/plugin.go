@@ -34,7 +34,7 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 		}
 
 		if err := badge(builder); err != nil {
-			return fmt.Errorf("unabke to generate badge: %v", err)
+			return fmt.Errorf("unable to generate badge: %v", err)
 		}
 	}
 	builder.WriteString("\n")

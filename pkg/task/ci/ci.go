@@ -35,7 +35,9 @@ func (d *Task) Do() error {
 
 	for _, a := range d.p.CI {
 		if a == models.Github {
-			makeGithubActions(d.p.Name)
+			if err := makeGithubActions(d.p.Name); err != nil {
+				return fmt.Errorf("unable to make github actions: %v", err)
+			}
 		}
 	}
 

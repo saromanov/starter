@@ -109,7 +109,7 @@ func consoleRead(p *models.Project) error {
 	}
 	ciRaw = ciRaw[:len(ciRaw)-1]
 	if len(ciRaw) > 0 {
-		p.CI = toCIActions(strings.Split(ciRaw[:len(ciRaw)-1], ","))
+		p.CI = toCIActions(strings.Split(ciRaw, ","))
 	}
 	return nil
 }
