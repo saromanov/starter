@@ -36,7 +36,7 @@ func CreateFile(name string, data []byte) error {
 
 	err := ioutil.WriteFile(name, data, 0644)
 	if err != nil {
-		return fmt.Errorf("unable to create file at: %s %v", outFile, err)
+		return fmt.Errorf("unable to create file at: %s %v", name, err)
 	}
 
 	return nil
