@@ -142,7 +142,12 @@ func readRepoConfig(reader *bufio.Reader) (string, error) {
 	}
 	token := os.Getenv("GITHUB_TOKEN")
 	if token == "" {
-		fmt.Println("GITHUB_TOKEN environment variable is not defined")
+		fmt.Println("GITHUB_TOKEN environment variable is not defined. ")
+		token, err := readLine(reader, "GITHUB_TOKEN:")
+		if err != nil {
+			return "", fmt.Errorf("unable to get GITHUB_TOKEN")
+		}
+		os.Setenv("GITHUB_TOKEN", token[:len(token)-1])
 		return "", nil
 	}
 	description, err := readLine(reader, "Enter description")
