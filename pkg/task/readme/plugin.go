@@ -42,12 +42,12 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 }
 
 func godocBadge(builder *strings.Builder, p *models.Project) error {
-	line := fmt.Sprintf("[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)", p.Username, p.Name)
+	line := fmt.Sprintf("[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)", p.Username, p.Name, p.Username, p.Name)
 	return writeBadge(builder, "godoc", line)
 }
 
 func goreportcardBadge(builder *strings.Builder, p *models.Project) error {
-	line := fmt.Sprintf("[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)", p.Username, p.Name)
+	line := fmt.Sprintf("[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)", p.Username, p.Name, p.Username, p.Name)
 	return writeBadge(builder, "godoc", line)
 }
 

@@ -31,6 +31,9 @@ func (d *Readme) String() string {
 
 // Do defines action of the task
 func (d *Readme) Do() error {
+	if d == nil || d.p == nil {
+		return nil
+	}
 	d1 := []byte(generate(d.p))
 	err := ioutil.WriteFile(fmt.Sprintf("%s/README.md", d.p.Name), d1, 0644)
 	if err != nil {
