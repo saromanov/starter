@@ -22,7 +22,7 @@ func description(b *strings.Builder, p *models.Project) error {
 }
 
 func addBadges(builder *strings.Builder, p *models.Project) error {
-	data := map[string]func(*strings.Builder) error{
+	data := map[string]func(*strings.Builder, *models.Project) error{
 		"goreportcard": goreportcardBadge,
 		"godoc":        godocBadge,
 	}
@@ -33,7 +33,7 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 			continue
 		}
 
-		if err := badge(builder); err != nil {
+		if err := badge(builder, p); err != nil {
 			return fmt.Errorf("unable to generate badge: %v", err)
 		}
 	}
@@ -41,13 +41,13 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 	return nil
 }
 
-func godocBadge(builder *strings.Builder) error {
-	line := "[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)"
+func godocBadge(builder *strings.Builder, p *models.Project) error {
+	line := fmt.Sprintf("[![GoDoc](https://godoc.org/github.com/%s/%s?status.png)](https://godoc.org/github.com/%s/%s)", p.Username, p.Name)
 	return writeBadge(builder, "godoc", line)
 }
 
-func goreportcardBadge(builder *strings.Builder) error {
-	line := "[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)"
+func goreportcardBadge(builder *strings.Builder, p *models.Project) error {
+	line := fmt.Sprintf("[![Go Report Card](https://goreportcard.com/badge/github.com/%s/%s)](https://goreportcard.com/report/github.com/%s/%s)", p.Username, p.Name)
 	return writeBadge(builder, "godoc", line)
 }
 
