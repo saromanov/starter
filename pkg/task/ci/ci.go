@@ -50,5 +50,5 @@ func makeGithubActions(path string) error {
 	if err := os.MkdirAll(wfPath, os.ModePerm); err != nil {
 		return fmt.Errorf("unable to create github flow")
 	}
-	return task.MoveFile("./assets/go.yml", wfPath+"/go.yml")
+	return task.CreateFile(wfPath+"/go.yml", []byte(actions))
 }

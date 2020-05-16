@@ -1,3 +1,6 @@
+package ci
+
+var actions = `
 name: Go
 
 on:
@@ -23,15 +26,11 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Get dependencies
-      run: |
-        go get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
+      run: go mod download
 
     - name: Build
       run: go build
       
     - name: Test
       run : go test ./...
+`

@@ -27,3 +27,17 @@ func MoveFile(inFile, outFile string) error {
 
 	return nil
 }
+
+// CreateFile provides creating of the file with data
+func CreateFile(name string, data []byte) error {
+	if name == "" {
+		return fmt.Errorf("name of the file is not defined")
+	}
+
+	err := ioutil.WriteFile(name, data, 0644)
+	if err != nil {
+		return fmt.Errorf("unable to create file at: %s %v", outFile, err)
+	}
+
+	return nil
+}
