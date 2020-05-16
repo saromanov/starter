@@ -1,41 +1,32 @@
 package readme
 
 import (
-	"os"
-	"path/filepath"
+	"fmt"
+	"io/ioutil"
 	"testing"
 
 	"github.com/saromanov/starter/pkg/models"
+	"github.com/saromanov/starter/pkg/testhelper"
 	"github.com/stretchr/testify/assert"
 )
 
-func removeContentFromRoot(dir string) error {
-	d, err := os.Open(dir)
-	if err != nil {
-		return err
-	}
-	defer d.Close()
-	names, err := d.Readdirnames(-1)
-	if err != nil {
-		return err
-	}
-	for _, name := range names {
-		err = os.RemoveAll(filepath.Join(dir, name))
-		if err != nil {
-			return err
-		}
-	}
-	return os.Remove(dir)
-}
-
 func TestDo(t *testing.T) {
+	dirName := "foobar"
+	testhelper.MakeRootDir(dirName)
 	p := New(nil)
 	assert.Nil(t, p.Do())
 
 	p = New(&models.Project{
-		Name: "foobar",
+		Name: dirName,
 		Type: models.Library,
 	})
 	assert.NoError(t, p.Do())
-	removeContentFromRoot("foobar")
+	data, err := getContentFromFile(fmt.Sprintf("%s/README.md", dirName))
+	assert.NoError(t, err)
+	assert.Equal(t, "# foobar\n\n### Author\n\n### LICENCE\n", string(data))
+	testhelper.RemoveContentFromRoot(dirName)
+}
+
+func getContentFromFile(path string) ([]byte, error) {
+	return ioutil.ReadFile(path)
 }
