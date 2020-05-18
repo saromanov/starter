@@ -7,6 +7,12 @@ Starter repo for Go projects. Generate of the project layout
 starter build
 ```
 
+or
+
+```sh
+starter --project=library build
+```
+
 will create project for library(modules)
 
 if you want to create binary project, you need to call it with
