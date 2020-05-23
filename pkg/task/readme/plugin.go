@@ -2,6 +2,7 @@ package readme
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/saromanov/starter/pkg/models"
@@ -30,6 +31,8 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 		"godoc":        godocBadge,
 	}
 
+	generated := 0
+	sort.Strings(p.Badges)
 	for _, b := range p.Badges {
 		badge, ok := data[b]
 		if !ok {
@@ -39,8 +42,12 @@ func addBadges(builder *strings.Builder, p *models.Project) error {
 		if err := badge(builder, p); err != nil {
 			return fmt.Errorf("unable to generate badge: %v", err)
 		}
+		generated++
 	}
-	builder.WriteString("\n")
+
+	if generated > 0 {
+		builder.WriteString("\n")
+	}
 	return nil
 }
 
