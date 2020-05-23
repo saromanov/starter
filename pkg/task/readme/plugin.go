@@ -22,6 +22,9 @@ func description(b *strings.Builder, p *models.Project) error {
 }
 
 func addBadges(builder *strings.Builder, p *models.Project) error {
+	if p.Username == "" {
+		return fmt.Errorf("username is not defined")
+	}
 	data := map[string]func(*strings.Builder, *models.Project) error{
 		"goreportcard": goreportcardBadge,
 		"godoc":        godocBadge,
