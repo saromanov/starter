@@ -36,4 +36,13 @@ func TestDo(t *testing.T) {
 		Makefile: "makefile",
 	})
 	assert.NoError(t, p.Do())
+
+	assert.Nil(t, New(&models.Project{
+		Name: rootTestDir,
+	}).Do())
+
+	assert.NoError(t, New(&models.Project{
+		Name:     rootTestDir,
+		Makefile: "default",
+	}).Do())
 }
