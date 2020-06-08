@@ -12,7 +12,7 @@ func Run(dir, command string, flags ...string) error {
 	cmd.Dir = dir
 	err := cmd.Run()
 	if err != nil {
-		return fmt.Errorf("failed to run command: %v", err)
+		return fmt.Errorf("failed to run command: %s %v", command, err)
 	}
 	return nil
 }

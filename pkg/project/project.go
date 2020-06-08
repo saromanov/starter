@@ -19,6 +19,8 @@ import (
 )
 
 // Build provides building of the project
+// first, its setting default tasks and then
+// setting only non empty tasks
 func Build(p *models.Project) error {
 	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p)}
 	if p.Dockerfile != "" {
