@@ -22,7 +22,7 @@ import (
 // first, its setting default tasks and then
 // setting only non empty tasks
 func Build(p *models.Project) error {
-	tasks := []task.Task{dirs.New(p), gomod.New(p), readme.New(p)}
+	tasks := task.Tasks{dirs.New(p), gomod.New(p), readme.New(p)}
 	if p.Dockerfile != "" {
 		tasks = append(tasks, dockerfile.New(p))
 	}

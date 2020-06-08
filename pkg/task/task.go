@@ -12,6 +12,9 @@ type Task interface {
 	String() string
 }
 
+// Tasks defines slice of tasks
+type Tasks []Task
+
 // MoveFile provides copy of the target file
 // to the project
 func MoveFile(inFile, outFile string) error {
