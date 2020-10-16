@@ -35,11 +35,16 @@ func (d *Dockerfile) Do() error {
 
 // creating of default dockerfile
 func createDefaultDockerfile(p *models.Project) error {
-	d1 := []byte("FROM golang:1.13")
+	d1 := []byte(p.DockerfileImage)
 	err := ioutil.WriteFile("Dockerfile", d1, 0644)
 	if err != nil {
 		return fmt.Errorf("unable to create dockerfile: %v", err)
 	}
+	return nil
+}
+
+// filling of the dockerfile with building of the project
+func fillDockerfile(p *models.Project) error {
 	return nil
 }
 

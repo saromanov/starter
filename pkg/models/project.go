@@ -45,6 +45,7 @@ type Project struct {
 	GitPath            string
 	Description        string
 	Dockerfile         string
+	DockerfileImage    string
 	Makefile           string
 	Type               ProjectType
 	SubDirs            []string

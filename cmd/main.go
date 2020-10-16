@@ -55,8 +55,8 @@ func main() {
 		},
 		Commands: []*cli.Command{
 			{
-				Name:   "build",
-				Usage:  "building of the new project",
+				Name:   "new",
+				Usage:  "creating of the new project",
 				Action: build,
 			},
 			{
