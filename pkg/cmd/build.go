@@ -51,11 +51,8 @@ func consoleRead(p *models.Project) error {
 	if err != nil {
 		return fmt.Errorf("unable to read user input: %v", err)
 	}
-	if len(name) < 3 || len(name) > 30 {
-		return fmt.Errorf("unable to validate name of the project length")
-	}
-	if name == "" {
-		return errNoName
+	if err := validateName(name); err != nil {
+		return fmt.Errorf("unable to validate name: %v", err)
 	}
 	p.Name = strings.ToLower(name[:len(name)-1])
 
@@ -110,6 +107,17 @@ func consoleRead(p *models.Project) error {
 	ciRaw = ciRaw[:len(ciRaw)-1]
 	if len(ciRaw) > 0 {
 		p.CI = toCIActions(strings.Split(ciRaw, ","))
+	}
+	return nil
+}
+
+// validateName provides validating of the project name
+func vallidateName(name string) error {
+	if name == "" {
+		return errNoName
+	}
+	if len(name) < 3 || len(name) > 30 {
+		return fmt.Errorf("unable to validate name of the project length")
 	}
 	return nil
 }

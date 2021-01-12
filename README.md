@@ -4,7 +4,7 @@
 Starter repo for Go projects. Generate of the project layout
 
 ```sh
-starter build
+starter new
 ```
 
 or
