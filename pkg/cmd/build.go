@@ -112,7 +112,7 @@ func consoleRead(p *models.Project) error {
 }
 
 // validateName provides validating of the project name
-func vallidateName(name string) error {
+func validateName(name string) error {
 	if name == "" {
 		return errNoName
 	}
