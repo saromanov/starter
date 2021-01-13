@@ -157,7 +157,6 @@ func readRepoConfig(reader *bufio.Reader) (string, error) {
 			return "", fmt.Errorf("unable to get GITHUB_TOKEN")
 		}
 		os.Setenv("GITHUB_TOKEN", token[:len(token)-1])
-		return "", nil
 	}
 	description, err := readLine(reader, "Enter description")
 	if err != nil {
