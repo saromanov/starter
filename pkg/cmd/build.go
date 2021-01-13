@@ -43,13 +43,14 @@ func BuildFromConfig(configPath string) error {
 	return nil
 }
 
+// consoleRead provides reading of console for input data
 func consoleRead(p *models.Project) error {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Add definition of the project(%v)\n", p.Type.String())
 	fmt.Println("---------------------")
 	name, err := readLine(reader, "Name of the project")
 	if err != nil {
-		return fmt.Errorf("unable to read user input: %v", err)
+		return fmt.Errorf("unable to read name of the project: %v", err)
 	}
 	if err := validateName(name); err != nil {
 		return fmt.Errorf("unable to validate name: %v", err)
@@ -58,7 +59,7 @@ func consoleRead(p *models.Project) error {
 
 	author, err := readLine(reader, "Author of the project")
 	if err != nil {
-		return fmt.Errorf("unable to read user input: %v", err)
+		return fmt.Errorf("unable to read autor of the project: %v", err)
 	}
 	if author == "" {
 		return errNoAuthor
