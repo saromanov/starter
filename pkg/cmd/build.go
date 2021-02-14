@@ -118,11 +118,12 @@ func validateName(name string) error {
 		return errNoName
 	}
 	if len(name) < 3 || len(name) > 30 {
-		return fmt.Errorf("unable to validate name of the project length")
+		return fmt.Errorf("unable to validate name of the project length. Should be > 3 and < 30")
 	}
 	return nil
 }
 
+// readLine provides reading of the line from console
 func readLine(reader *bufio.Reader, name string) (string, error) {
 	fmt.Println(name)
 	line, err := reader.ReadString('\n')
