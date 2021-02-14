@@ -29,4 +29,5 @@ jobs:
       run: make build
       
     - name: Test
+      uses: actions/setup-go@v1
       run : go test ./...
