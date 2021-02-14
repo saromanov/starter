@@ -23,7 +23,7 @@ func TestDo(t *testing.T) {
 	assert.NoError(t, p.Do())
 	data, err := getContentFromFile(fmt.Sprintf("%s/README.md", dirName))
 	assert.NoError(t, err)
-	assert.Equal(t, "# foobar\n\n### Author\n\n### LICENCE\n", string(data))
+	assert.Equal(t, "# foobar\n### Author\n\n### LICENCE\n", string(data))
 	testhelper.RemoveContentFromRoot(dirName)
 }
 

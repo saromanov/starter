@@ -33,7 +33,7 @@ func removeContentFromRoot(dir string) error {
 func TestDo(t *testing.T) {
 	p := New(&models.Project{
 		Name:     rootTestDir,
-		Makefile: "makefile",
+		Makefile: "../../../assets/makefile-default",
 	})
 	assert.NoError(t, p.Do())
 
@@ -43,6 +43,6 @@ func TestDo(t *testing.T) {
 
 	assert.NoError(t, New(&models.Project{
 		Name:     rootTestDir,
-		Makefile: "default",
+		Makefile: "../../../assets/makefile-default",
 	}).Do())
 }

@@ -19,6 +19,7 @@ func checkFile(path string) error {
 }
 
 func TestDo(t *testing.T) {
+	os.Mkdir(tmpDir, os.ModePerm)
 	p := &models.Project{Name: tmpDir}
 	d := New(p)
 	assert.NoError(t, d.Do())

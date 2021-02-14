@@ -41,7 +41,7 @@ func TestDirs(t *testing.T) {
 		SubDirs: []string{"abc", "foobar"},
 	})
 	assert.NoError(t, p.Do())
+	assert.NoError(t, New(&models.Project{Name: "acccc"}).Do())
 	assert.NoError(t, removeContentFromRoot(rootTestDir))
 	assert.Error(t, New(&models.Project{}).Do())
-	assert.Error(t, New(&models.Project{Name: "acccc"}).Do())
 }
